@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prototipo navegable de una plataforma universitaria de apoyo emocional y académico anónimo.">
+    <title>PAE — Apoyo Estudiantil Anónimo</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-view="web">
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+
+    <header class="prototype-toolbar" aria-label="Controles de presentación">
+      <div class="prototype-title">
+        <span class="prototype-dot" aria-hidden="true"></span>
+        <span><strong>Prototipo</strong> · Apoyo estudiantil</span>
+      </div>
+      <div class="view-switcher" role="group" aria-label="Cambiar formato de visualización">
+        <button class="view-button is-active" type="button" data-view-mode="web" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+            <path d="M8 21h8M12 17v4"></path>
+          </svg>
+          Ver como sitio web
+        </button>
+        <button class="view-button" type="button" data-view-mode="mobile" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="7" y="2" width="10" height="20" rx="2"></rect>
+            <path d="M11 18h2"></path>
+          </svg>
+          Ver como celular
+        </button>
+      </div>
+    </header>
+
+    <main class="preview-stage">
+      <div class="app-frame">
+        <div class="phone-notch" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <div class="app-shell">
+          <aside class="sidebar" aria-label="Navegación principal">
+            <button class="brand nav-trigger" type="button" data-screen-target="home" aria-label="Ir al inicio">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M16 27c-6-4-10-8.2-10-14a5.5 5.5 0 0 1 10-3.4A5.5 5.5 0 0 1 26 13c0 5.8-4 10-10 14Z"></path>
+                  <path d="M11.5 16.3h3l1.3-3.1 1.8 6 1.1-2.9h2"></path>
+                </svg>
+              </span>
+              <span class="brand-copy"><strong>PAE</strong><small>Apoyo estudiantil</small></span>
+            </button>
+
+            <nav class="side-nav">
+              <button class="nav-item is-active" type="button" data-screen-target="home">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10M9 20v-6h6v6"></path></svg>
+                Inicio
+              </button>
+              <button class="nav-item" type="button" data-screen-target="needs">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8M12 8v8"></path></svg>
+                Encontrar apoyo
+              </button>
+              <button class="nav-item" type="button" data-screen-target="community">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5c-2.4 0-4-1.2-4-3 0-1.4 1-2.5 2.6-2.9"></path><circle cx="8" cy="7.5" r="3"></circle><circle cx="16.5" cy="9" r="2.5"></circle><path d="M7 20c0-3 2-5 5-5s5 2 5 5M16 14c3 0 5 1.5 5 4"></path></svg>
+                Comunidad
+              </button>
+              <button class="nav-item" type="button" data-screen-target="resources">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"></path><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"></path></svg>
+                Recursos
+              </button>
+              <button class="nav-item" type="button" data-screen-target="institutions">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M5 9v9M9 9v9M15 9v9M19 9v9M3 20h18M12 3l9 4H3Z"></path></svg>
+                Canales de ayuda
+              </button>
+            </nav>
+
+            <div class="privacy-card">
+              <span class="mini-shield" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              </span>
+              <strong>Tu espacio es privado</strong>
+              <p>Conoce cómo protegemos tu identidad en este prototipo.</p>
+              <button type="button" class="text-button open-anonymity">¿Cómo funciona?</button>
+            </div>
+
+            <button class="feedback-shortcut nav-trigger" type="button" data-screen-target="feedback">
+              Ayúdanos a mejorar
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </aside>
+
+          <section class="main-panel">
+            <header class="mobile-header">
+              <button class="mobile-brand nav-trigger" type="button" data-screen-target="home" aria-label="Ir al inicio">
+                <span class="brand-mark" aria-hidden="true">
+                  <svg viewBox="0 0 32 32">
+                    <path d="M16 27c-6-4-10-8.2-10-14a5.5 5.5 0 0 1 10-3.4A5.5 5.5 0 0 1 26 13c0 5.8-4 10-10 14Z"></path>
+                    <path d="M11.5 16.3h3l1.3-3.1 1.8 6 1.1-2.9h2"></path>
+                  </svg>
+                </span>
+                <strong>PAE</strong>
+              </button>
+              <button class="icon-button open-anonymity" type="button" aria-label="Información sobre anonimato">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              </button>
+            </header>
+
+            <header class="context-bar">
+              <div>
+                <p class="eyebrow">Bienestar universitario</p>
+                <p class="context-greeting">Hola, <strong>Estudiante anónimo</strong></p>
+              </div>
+              <div class="context-actions">
+                <span class="safe-status">
+                  <span></span>
+                  Navegación privada
+                </span>
+                <button class="icon-button open-anonymity" type="button" aria-label="Información sobre anonimato">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+                </button>
+              </div>
+            </header>
+
+            <div id="main-content" class="screen-container" tabindex="-1">
+              <section class="screen is-active" data-screen="home" aria-labelledby="home-title">
+                <div class="home-hero">
+                  <div class="hero-copy">
+                    <div class="trust-pill">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                      Seguro · Anónimo · Gratuito
+                    </div>
+                    <h1 id="home-title">Plataforma de Apoyo Estudiantil <span>Anónima</span></h1>
+                    <p class="hero-lead">Un espacio seguro, privado y accesible para recibir apoyo emocional y académico sin temor al juicio.</p>
+                    <div class="hero-actions">
+                      <button class="primary-button nav-trigger" type="button" data-screen-target="needs">
+                        Ingresar de forma anónima
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                      </button>
+                      <button class="secondary-button nav-trigger" type="button" data-screen-target="resources">Ver recursos</button>
+                    </div>
+                    <button class="privacy-note open-anonymity" type="button">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"></path><rect x="5" y="10" width="14" height="11" rx="2"></rect></svg>
+                      Tu identidad no se muestra públicamente
+                    </button>
+                  </div>
+
+                  <div class="hero-visual" aria-label="Ilustración de un espacio seguro de apoyo">
+                    <span class="visual-orb orb-one"></span>
+                    <span class="visual-orb orb-two"></span>
+                    <div class="check-in-card">
+                      <div class="check-in-head">
+                        <span class="avatar-shape" aria-hidden="true">
+                          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg>
+                        </span>
+                        <div><strong>¿Cómo te sientes hoy?</strong><small>Tu respuesta es privada</small></div>
+                      </div>
+                      <div class="mood-row" aria-hidden="true">
+                        <span>😌</span><span>🙂</span><span class="selected">😐</span><span>😟</span><span>😣</span>
+                      </div>
+                      <div class="check-in-line"><span></span><span></span></div>
+                    </div>
+                    <div class="floating-safe">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                      <div><strong>100% anónimo</strong><small>Comparte sin exponer tu identidad</small></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="home-lower">
+                  <button class="urgent-card nav-trigger" type="button" data-screen-target="institutions">
+                    <span class="urgent-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"></path><path d="M12 7v6M12 17h.01M16 4l2 2 4-4"></path></svg>
+                    </span>
+                    <span><small>¿Necesitas orientación ahora?</small><strong>Necesito apoyo</strong></span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                  <div class="home-stat">
+                    <span class="stat-avatars" aria-hidden="true"><i>12</i><i>08</i><i>24</i></span>
+                    <p><strong>No estás solo/a.</strong><br>Esta comunidad fue pensada contigo.</p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="needs" aria-labelledby="needs-title">
+                <div class="section-heading">
+                  <button class="back-button nav-trigger" type="button" data-screen-target="home" aria-label="Volver al inicio">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+                  </button>
+                  <div>
+                    <p class="eyebrow">Tu bienestar importa</p>
+                    <h2 id="needs-title">¿Qué necesitas hoy?</h2>
+                    <p>Elige el espacio que mejor se adapte a lo que estás viviendo.</p>
+                  </div>
+                </div>
+
+                <div class="needs-grid">
+                  <button class="need-card mint nav-trigger" type="button" data-screen-target="vent">
+                    <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h8l4 3v-3a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3Z"></path><path d="M8 9h8M8 13h5"></path></svg></span>
+                    <span><strong>Desahogo anónimo</strong><small>Expresa lo que sientes en un espacio seguro y sin juicios.</small></span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                  <button class="need-card yellow nav-trigger" type="button" data-screen-target="academic">
+                    <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-5 9 5-9 5Z"></path><path d="M7 13v4c3 2 7 2 10 0v-4M21 10v6"></path></svg></span>
+                    <span><strong>Consulta académica</strong><small>Haz preguntas y recibe orientación sin exponer tu identidad.</small></span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                  <button class="need-card lilac nav-trigger" type="button" data-screen-target="community">
+                    <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="10" r="2.5"></circle><path d="M3 20c0-4 2-6 6-6s6 2 6 6M15 15c4 0 6 1.5 6 5"></path></svg></span>
+                    <span><strong>Comunidad de apoyo</strong><small>Conecta con experiencias y mensajes de apoyo entre pares.</small></span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                  <button class="need-card blue nav-trigger" type="button" data-screen-target="resources">
+                    <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"></path><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"></path></svg></span>
+                    <span><strong>Recursos de bienestar y estudio</strong><small>Explora herramientas breves para cuidarte y organizarte.</small></span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                  <button class="need-card orange nav-trigger full" type="button" data-screen-target="institutions">
+                    <span class="need-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path><path d="M12 7v5M12 16h.01M17 4l2 2 3-3"></path></svg></span>
+                    <span><strong>Derivación a apoyos institucionales</strong><small>Conoce los canales profesionales y académicos disponibles en tu universidad.</small></span>
+                    <span class="card-badge">Orientación</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="vent" aria-labelledby="vent-title">
+                <div class="section-heading">
+                  <button class="back-button nav-trigger" type="button" data-screen-target="needs" aria-label="Volver a las opciones">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+                  </button>
+                  <div>
+                    <p class="eyebrow">Espacio de desahogo</p>
+                    <h2 id="vent-title">Lo que sientes merece un espacio</h2>
+                    <p>Escribe con libertad. Tu publicación aparecerá con un alias automático.</p>
+                  </div>
+                </div>
+
+                <div class="content-split">
+                  <form id="vent-form" class="composer-card">
+                    <div class="composer-identity">
+                      <span class="anon-avatar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg></span>
+                      <div><strong>Publicarás como estudiante anónimo</strong><small>Nadie verá tu nombre ni datos personales.</small></div>
+                    </div>
+                    <label for="vent-message">¿Qué necesitas expresar?</label>
+                    <textarea id="vent-message" name="message" rows="5" maxlength="320" required placeholder="Escribe aquí lo que estás sintiendo…"></textarea>
+                    <div class="form-row">
+                      <div class="field-group">
+                        <label for="vent-category">¿Cómo lo describirías?</label>
+                        <select id="vent-category" name="category" required>
+                          <option value="">Selecciona una categoría</option>
+                          <option value="Estrés">Estrés</option>
+                          <option value="Ansiedad">Ansiedad</option>
+                          <option value="Agotamiento">Agotamiento</option>
+                          <option value="Adaptación">Adaptación</option>
+                          <option value="Otro">Otro</option>
+                        </select>
+                      </div>
+                      <button class="primary-button" type="submit">Publicar de forma anónima</button>
+                    </div>
+                  </form>
+
+                  <aside class="gentle-reminder">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M8.5 14.5A6 6 0 1 1 17 13c-1.4 1-2 2-2 3H9c0-1-.5-1.8-1.5-2.7"></path></svg>
+                    <div><strong>Un recordatorio amable</strong><p>Evita compartir nombres, carreras o datos que puedan identificarte o identificar a otras personas.</p></div>
+                  </aside>
+                </div>
+
+                <div class="feed-heading">
+                  <div><h3>Muro anónimo</h3><p>Experiencias compartidas por estudiantes.</p></div>
+                  <span class="live-pill"><i></i> Comunidad activa</span>
+                </div>
+                <div id="vent-feed" class="post-grid" aria-live="polite">
+                  <article class="post-card">
+                    <div class="post-meta"><span class="anon-avatar small">24</span><div><strong>Estudiante anónimo 24</strong><small>Hace 8 min · Estrés</small></div></div>
+                    <p>Me siento sobrepasado con las evaluaciones.</p>
+                    <span class="support-count">♡ 12 personas te acompañan</span>
+                  </article>
+                  <article class="post-card">
+                    <div class="post-meta"><span class="anon-avatar small blue-avatar">08</span><div><strong>Estudiante anónimo 08</strong><small>Hace 24 min · Ansiedad</small></div></div>
+                    <p>Me cuesta pedir ayuda porque me da vergüenza.</p>
+                    <span class="support-count">♡ 19 personas te acompañan</span>
+                  </article>
+                  <article class="post-card">
+                    <div class="post-meta"><span class="anon-avatar small lilac-avatar">31</span><div><strong>Estudiante anónimo 31</strong><small>Hace 1 h · Agotamiento</small></div></div>
+                    <p>No sé cómo organizarme con tantos trabajos.</p>
+                    <span class="support-count">♡ 8 personas te acompañan</span>
+                  </article>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="academic" aria-labelledby="academic-title">
+                <div class="section-heading">
+                  <button class="back-button nav-trigger" type="button" data-screen-target="needs" aria-label="Volver a las opciones">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+                  </button>
+                  <div>
+                    <p class="eyebrow">Orientación académica</p>
+                    <h2 id="academic-title">Pregunta sin miedo a equivocarte</h2>
+                    <p>Tu duda puede ser la misma que tiene otra persona.</p>
+                  </div>
+                </div>
+
+                <form id="academic-form" class="inline-question">
+                  <label for="academic-question">Escribe tu consulta académica</label>
+                  <div>
+                    <input id="academic-question" name="question" required maxlength="180" placeholder="Ej.: ¿Cómo puedo preparar una prueba acumulativa?">
+                    <button class="primary-button" type="submit">Preguntar anónimamente</button>
+                  </div>
+                </form>
+
+                <div id="academic-list" class="qa-list" aria-live="polite">
+                  <article class="qa-card">
+                    <div class="question-line"><span class="anon-avatar small">14</span><div><strong>¿Cómo puedo organizarme mejor antes de una prueba?</strong><small>Estudiante anónimo 14 · Organización</small></div></div>
+                    <div class="answer-box"><span>Respuesta de la comunidad</span><p>Divide el contenido en bloques pequeños y planifica repasos breves. El recurso de <button class="inline-link resource-link" type="button" data-resource="time">organización del tiempo</button> puede ayudarte.</p></div>
+                  </article>
+                  <article class="qa-card">
+                    <div class="question-line"><span class="anon-avatar small blue-avatar">22</span><div><strong>¿Qué hago si no entiendo un ramo?</strong><small>Estudiante anónimo 22 · Aprendizaje</small></div></div>
+                    <div class="answer-box"><span>Recurso sugerido</span><p>Anota las dudas concretas, pregunta en ayudantía y consulta los canales de orientación académica. Pedir ayuda también es una estrategia de estudio.</p></div>
+                  </article>
+                  <article class="qa-card">
+                    <div class="question-line"><span class="anon-avatar small lilac-avatar">05</span><div><strong>¿Dónde puedo encontrar apoyo académico?</strong><small>Estudiante anónimo 05 · Orientación</small></div></div>
+                    <div class="answer-box"><span>Orientación</span><p>Cada universidad dispone de canales distintos. Revisa la sección <button class="inline-link nav-trigger" type="button" data-screen-target="institutions">Canales de ayuda</button> para ubicar las opciones institucionales.</p></div>
+                  </article>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="community" aria-labelledby="community-title">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="eyebrow">Entre estudiantes</p>
+                    <h2 id="community-title">Comunidad de apoyo</h2>
+                    <p>Un gesto amable puede cambiar el día de otra persona.</p>
+                  </div>
+                </div>
+
+                <div class="community-rules">
+                  <strong>Acuerdos de esta comunidad</strong>
+                  <ul aria-label="Reglas de la comunidad">
+                    <li>Respeto</li><li>Empatía</li><li>Sin burlas</li><li>Sin exponer identidades</li>
+                  </ul>
+                </div>
+
+                <div class="community-layout">
+                  <div class="community-feed">
+                    <article class="community-post" data-community-post>
+                      <div class="post-meta"><span class="anon-avatar small lilac-avatar">17</span><div><strong>Estudiante anónimo 17</strong><small>Hace 12 min</small></div></div>
+                      <p>Hoy logré presentar frente al curso aunque estaba muy nerviosa. Quizás es un paso pequeño, pero me siento orgullosa.</p>
+                      <div class="support-reply"><strong>Estudiante anónimo 03</strong><p>¡No es pequeño! Te atreviste a pesar de los nervios. Gracias por compartirlo 🌱</p></div>
+                      <button class="support-button" type="button" data-support-reply>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+                        Responder con apoyo
+                      </button>
+                    </article>
+                    <article class="community-post" data-community-post>
+                      <div class="post-meta"><span class="anon-avatar small blue-avatar">29</span><div><strong>Estudiante anónimo 29</strong><small>Hace 40 min</small></div></div>
+                      <p>Esta semana ha sido difícil. Leer que otras personas pasan por algo parecido me hace sentir menos solo.</p>
+                      <div class="support-reply"><strong>Estudiante anónimo 11</strong><p>Aquí estamos contigo. Un día a la vez; no tienes que resolver todo hoy 💜</p></div>
+                      <button class="support-button" type="button" data-support-reply>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+                        Responder con apoyo
+                      </button>
+                    </article>
+                  </div>
+                  <aside class="community-aside">
+                    <span class="aside-art">💬</span>
+                    <h3>Antes de responder</h3>
+                    <p>Escucha, valida la emoción y comparte ánimo. Evita diagnosticar o imponer soluciones.</p>
+                    <button class="secondary-button nav-trigger" type="button" data-screen-target="vent">Compartir cómo me siento</button>
+                  </aside>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="resources" aria-labelledby="resources-title">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="eyebrow">Herramientas breves</p>
+                    <h2 id="resources-title">Recursos para sentirte y estudiar mejor</h2>
+                    <p>Ideas simples para probar a tu ritmo. Elige una tarjeta para explorarla.</p>
+                  </div>
+                </div>
+
+                <div class="resource-grid">
+                  <button class="resource-card mint resource-link" type="button" data-resource="breathing">
+                    <span class="resource-icon">〰</span><span class="resource-time">2 min</span>
+                    <strong>Técnicas de respiración</strong><small>Una pausa guiada para recuperar la calma.</small><span class="explore">Explorar <b>→</b></span>
+                  </button>
+                  <button class="resource-card yellow resource-link" type="button" data-resource="time">
+                    <span class="resource-icon">◷</span><span class="resource-time">4 min</span>
+                    <strong>Organización del tiempo</strong><small>Ordena tus pendientes sin sobrecargarte.</small><span class="explore">Explorar <b>→</b></span>
+                  </button>
+                  <button class="resource-card blue resource-link" type="button" data-resource="study">
+                    <span class="resource-icon">✎</span><span class="resource-time">5 min</span>
+                    <strong>Técnicas de estudio</strong><small>Aprende con práctica, pausas y objetivos claros.</small><span class="explore">Explorar <b>→</b></span>
+                  </button>
+                  <button class="resource-card lilac resource-link" type="button" data-resource="stress">
+                    <span class="resource-icon">♧</span><span class="resource-time">3 min</span>
+                    <strong>Manejo del estrés</strong><small>Identifica señales y crea un plan de cuidado.</small><span class="explore">Explorar <b>→</b></span>
+                  </button>
+                  <button class="resource-card green resource-link" type="button" data-resource="ask">
+                    <span class="resource-icon">♡</span><span class="resource-time">4 min</span>
+                    <strong>Guía para pedir ayuda</strong><small>Una forma sencilla de iniciar esa conversación.</small><span class="explore">Explorar <b>→</b></span>
+                  </button>
+                  <button class="resource-card orange resource-link" type="button" data-resource="crisis">
+                    <span class="resource-icon">!</span><span class="resource-time">Orientación</span>
+                    <strong>Recursos para crisis académicas</strong><small>Pasos para cuando la carga se vuelve difícil de sostener.</small><span class="explore">Explorar <b>→</b></span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="institutions" aria-labelledby="institutions-title">
+                <div class="section-heading compact">
+                  <div>
+                    <p class="eyebrow orange-text">Orientación y derivación</p>
+                    <h2 id="institutions-title">Canales de apoyo institucional</h2>
+                    <p>Buscar apoyo es una decisión valiente. Aquí puedes reconocer qué canal podría ayudarte.</p>
+                  </div>
+                </div>
+
+                <div class="professional-notice">
+                  <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg></span>
+                  <p><strong>Esta plataforma no reemplaza el apoyo profesional.</strong> Si necesitas ayuda, puedes revisar estos canales.</p>
+                </div>
+
+                <div class="institution-list">
+                  <article>
+                    <span class="institution-icon mint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20v-9h12v9M9 11V7h6v4M12 3v4M9 4h6"></path></svg></span>
+                    <div><h3>Bienestar estudiantil</h3><p>Orientación general, beneficios y acompañamiento durante la vida universitaria.</p><small>Contacto institucional disponible según universidad.</small></div>
+                    <button class="outline-button institution-action" type="button" data-channel="Bienestar estudiantil">Ver orientación</button>
+                  </article>
+                  <article>
+                    <span class="institution-icon lilac"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg></span>
+                    <div><h3>Apoyo psicológico</h3><p>Atención profesional para el bienestar emocional y la salud mental.</p><small>Contacto institucional disponible según universidad.</small></div>
+                    <button class="outline-button institution-action" type="button" data-channel="Apoyo psicológico">Ver orientación</button>
+                  </article>
+                  <article>
+                    <span class="institution-icon yellow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-5 9 5-9 5Z"></path><path d="M7 13v4c3 2 7 2 10 0v-4"></path></svg></span>
+                    <div><h3>Orientación académica</h3><p>Apoyo con hábitos de estudio, carga académica y adaptación universitaria.</p><small>Contacto institucional disponible según universidad.</small></div>
+                    <button class="outline-button institution-action" type="button" data-channel="Orientación académica">Ver orientación</button>
+                  </article>
+                  <article class="emergency-row">
+                    <span class="institution-icon orange"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 17h.01"></path><path d="M10.3 3.8 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 3.8a2 2 0 0 0-3.4 0Z"></path></svg></span>
+                    <div><h3>Contacto de emergencia</h3><p>Si existe riesgo inmediato para ti o para otra persona, utiliza los canales de emergencia oficiales de tu localidad.</p><small>Los datos reales deben ser definidos por cada universidad.</small></div>
+                    <button class="outline-button institution-action" type="button" data-channel="Contacto de emergencia">Revisar indicación</button>
+                  </article>
+                </div>
+
+                <div class="orientation-cta">
+                  <div><small>¿No sabes qué opción elegir?</small><strong>Podemos orientarte en el siguiente paso.</strong></div>
+                  <button id="orientation-request" class="primary-button orange-button" type="button">Solicitar orientación</button>
+                </div>
+              </section>
+
+              <section class="screen" data-screen="feedback" aria-labelledby="feedback-title">
+                <div class="feedback-intro">
+                  <span class="feedback-art" aria-hidden="true">✦</span>
+                  <p class="eyebrow">Prueba de experiencia</p>
+                  <h2 id="feedback-title">Ayúdanos a mejorar el prototipo</h2>
+                  <p>Tu opinión nos permitirá crear una solución más clara, útil y confiable para estudiantes.</p>
+                </div>
+
+                <form id="feedback-form" class="feedback-form">
+                  <fieldset>
+                    <legend>1. ¿Entendiste para qué sirve la plataforma?</legend>
+                    <div class="choice-row">
+                      <label><input type="radio" name="understood" value="Sí, completamente" required><span>Sí, completamente</span></label>
+                      <label><input type="radio" name="understood" value="Más o menos"><span>Más o menos</span></label>
+                      <label><input type="radio" name="understood" value="No todavía"><span>No todavía</span></label>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>2. ¿La usarías?</legend>
+                    <div class="choice-row">
+                      <label><input type="radio" name="wouldUse" value="Sí" required><span>Sí</span></label>
+                      <label><input type="radio" name="wouldUse" value="Quizás"><span>Quizás</span></label>
+                      <label><input type="radio" name="wouldUse" value="No"><span>No</span></label>
+                    </div>
+                  </fieldset>
+                  <div class="feedback-two-column">
+                    <label class="field-group">3. ¿Qué función te parece más útil?
+                      <select name="mostUseful" required>
+                        <option value="">Selecciona una función</option>
+                        <option>Desahogo anónimo</option>
+                        <option>Consulta académica</option>
+                        <option>Comunidad de apoyo</option>
+                        <option>Recursos</option>
+                        <option>Canales institucionales</option>
+                      </select>
+                    </label>
+                    <label class="field-group">4. ¿Confías en el anonimato?
+                      <select name="trust" required>
+                        <option value="">Selecciona una opción</option>
+                        <option>Sí</option>
+                        <option>Tengo algunas dudas</option>
+                        <option>No</option>
+                      </select>
+                    </label>
+                  </div>
+                  <fieldset>
+                    <legend>5. ¿Preferirías usarla como app, web o ambas?</legend>
+                    <div class="choice-row">
+                      <label><input type="radio" name="format" value="App" required><span>App</span></label>
+                      <label><input type="radio" name="format" value="Web"><span>Web</span></label>
+                      <label><input type="radio" name="format" value="Ambas"><span>Ambas</span></label>
+                    </div>
+                  </fieldset>
+                  <label class="field-group" for="feedback-comments">6. ¿Qué cambiarías?</label>
+                  <textarea id="feedback-comments" name="comments" rows="4" placeholder="Cuéntanos qué mejorarías, agregarías o quitarías…"></textarea>
+                  <div class="feedback-submit">
+                    <p><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"></path><rect x="5" y="10" width="14" height="11" rx="2"></rect></svg> Tus respuestas son simuladas y no se envían a ningún servidor.</p>
+                    <button class="primary-button" type="submit">Enviar feedback</button>
+                  </div>
+                </form>
+              </section>
+            </div>
+
+            <nav class="mobile-bottom-nav" aria-label="Navegación móvil">
+              <button class="is-active" type="button" data-screen-target="home">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg><span>Inicio</span>
+              </button>
+              <button type="button" data-screen-target="needs">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8M12 8v8"></path></svg><span>Apoyo</span>
+              </button>
+              <button type="button" data-screen-target="resources">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"></path><path d="M5 17a3 3 0 0 1 3-3h11"></path></svg><span>Recursos</span>
+              </button>
+              <button type="button" data-screen-target="feedback">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h8l4 3v-3a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3Z"></path></svg><span>Opinar</span>
+              </button>
+            </nav>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <dialog id="resource-modal" class="modal">
+      <button class="modal-close" type="button" data-close-modal aria-label="Cerrar recurso">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <div id="resource-modal-icon" class="modal-icon"></div>
+      <p id="resource-modal-kicker" class="eyebrow"></p>
+      <h2 id="resource-modal-title"></h2>
+      <p id="resource-modal-intro" class="modal-intro"></p>
+      <div id="resource-modal-content" class="modal-steps"></div>
+      <button class="primary-button modal-done" type="button" data-close-modal>Listo, quiero probarlo</button>
+    </dialog>
+
+    <dialog id="anonymity-modal" class="modal anonymity-modal">
+      <button class="modal-close" type="button" data-close-modal aria-label="Cerrar información">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      </button>
+      <div class="modal-icon shield-modal-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+      </div>
+      <p class="eyebrow">Tu privacidad primero</p>
+      <h2>¿Cómo funciona el anonimato?</h2>
+      <p class="modal-intro">Diseñamos esta experiencia para reducir el miedo al juicio y facilitar que pedir apoyo se sienta más seguro.</p>
+      <ul class="privacy-list">
+        <li><span>01</span><div><strong>Tu identidad no se muestra</strong><p>El nombre y los datos personales no aparecen públicamente.</p></div></li>
+        <li><span>02</span><div><strong>Usamos alias automáticos</strong><p>Las publicaciones se muestran como “Estudiante anónimo” más un número.</p></div></li>
+        <li><span>03</span><div><strong>Promovemos espacios moderados</strong><p>El respeto, la empatía y la no exposición de identidades son reglas centrales.</p></div></li>
+      </ul>
+      <p class="prototype-caveat">En una implementación real, la universidad deberá definir y comunicar sus políticas de datos y moderación.</p>
+      <button class="primary-button modal-done" type="button" data-close-modal>Entendido</button>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+      <span class="toast-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg>
+      </span>
+      <div><strong id="toast-title">Listo</strong><p id="toast-message"></p></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
