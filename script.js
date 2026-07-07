@@ -18,6 +18,10 @@ const downloadFeedbackButton = document.querySelector("#download-feedback");
 const clearFeedbackButton = document.querySelector("#clear-feedback");
 
 const STORAGE_KEY = "apoyo-estudiantil-prototipo-v1";
+// Pega aquí la URL de Google Apps Script que termina en /exec para activar el envío a Google Sheets.
+const GOOGLE_SHEETS_WEB_APP_URL = "";
+const GOOGLE_SHEETS_ENABLED = GOOGLE_SHEETS_WEB_APP_URL.startsWith("https://script.google.com/macros/s/")
+  && GOOGLE_SHEETS_WEB_APP_URL.endsWith("/exec");
 let activeScreen = "home";
 let toastTimer;
 let storedData = loadStoredData();
@@ -304,6 +308,37 @@ function toCsvCell(value = "") {
   return `"${String(value).replaceAll('"', '""')}"`;
 }
 
+async function sendToGoogleSheets(type, record) {
+  if (!GOOGLE_SHEETS_ENABLED) return false;
+
+  const payload = {
+    type,
+    ...record,
+    page: window.location.href,
+    view: document.body.dataset.view || "web",
+    userAgent: navigator.userAgent
+  };
+
+  try {
+    await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload)
+    });
+    return true;
+  } catch (error) {
+    console.warn("No se pudo enviar el registro a Google Sheets:", error);
+    return false;
+  }
+}
+
+function describeSaveTarget() {
+  return GOOGLE_SHEETS_ENABLED ? "También se envió a Google Sheets." : "Quedó guardado localmente como respaldo.";
+}
+
 function scrollAppToTop() {
   if (document.body.dataset.view === "mobile") {
     appScroller.scrollTo({ top: 0, behavior: "smooth" });
@@ -383,9 +418,10 @@ document.querySelector("#vent-form").addEventListener("submit", (event) => {
 
   storedData.vents.unshift(record);
   saveStoredData();
+  sendToGoogleSheets("vent", record);
   ventFeed.prepend(post);
   form.reset();
-  showToast("Publicación anónima guardada", `Tu mensaje apareció como Estudiante anónimo ${aliasNumber}.`);
+  showToast("Publicación anónima guardada", `Tu mensaje apareció como Estudiante anónimo ${aliasNumber}. ${describeSaveTarget()}`);
 });
 
 document.querySelector("#academic-form").addEventListener("submit", (event) => {
@@ -407,9 +443,10 @@ document.querySelector("#academic-form").addEventListener("submit", (event) => {
 
   storedData.academic.unshift(record);
   saveStoredData();
+  sendToGoogleSheets("academic", record);
   academicList.prepend(card);
   form.reset();
-  showToast("Consulta guardada", "Tu pregunta se agregó sin mostrar tu identidad.");
+  showToast("Consulta guardada", `Tu pregunta se agregó sin mostrar tu identidad. ${describeSaveTarget()}`);
 });
 
 document.querySelectorAll("[data-support-reply]").forEach((button) => {
@@ -423,14 +460,16 @@ document.querySelectorAll("[data-support-reply]").forEach((button) => {
     }
 
     const postIndex = [...document.querySelectorAll("[data-community-post]")].indexOf(post);
-    storedData.supportReplies.unshift({
+    const record = {
       id: createRecordId(),
       createdAt: new Date().toISOString(),
       postIndex
-    });
+    };
+    storedData.supportReplies.unshift(record);
     saveStoredData();
+    sendToGoogleSheets("support", record);
     addSupportReply(post, button);
-    showToast("Respuesta de apoyo guardada", "Tu mensaje apareció con identidad anónima.");
+    showToast("Respuesta de apoyo guardada", `Tu mensaje apareció con identidad anónima. ${describeSaveTarget()}`);
   });
 });
 
@@ -495,9 +534,10 @@ feedbackForm.addEventListener("submit", (event) => {
   storedData.feedback.unshift(feedback);
   saveStoredData();
   renderFeedbackDashboard();
+  sendToGoogleSheets("feedback", feedback);
   console.info("Feedback guardado del prototipo:", feedback);
   form.reset();
-  showToast("¡Gracias por ayudarnos!", "Tu feedback quedó guardado en este navegador.");
+  showToast("¡Gracias por ayudarnos!", `Tu feedback quedó guardado en este navegador. ${describeSaveTarget()}`);
 });
 
 downloadFeedbackButton.addEventListener("click", downloadFeedbackCsv);
