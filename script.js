@@ -9,10 +9,19 @@ const toastTitle = document.querySelector("#toast-title");
 const toastMessage = document.querySelector("#toast-message");
 const resourceModal = document.querySelector("#resource-modal");
 const anonymityModal = document.querySelector("#anonymity-modal");
+const ventFeed = document.querySelector("#vent-feed");
+const academicList = document.querySelector("#academic-list");
+const feedbackForm = document.querySelector("#feedback-form");
+const savedFeedbackSummary = document.querySelector("#saved-feedback-summary");
+const savedFeedbackList = document.querySelector("#saved-feedback-list");
+const downloadFeedbackButton = document.querySelector("#download-feedback");
+const clearFeedbackButton = document.querySelector("#clear-feedback");
 
+const STORAGE_KEY = "apoyo-estudiantil-prototipo-v1";
 let activeScreen = "home";
 let toastTimer;
-let aliasSeed = 42;
+let storedData = loadStoredData();
+let aliasSeed = getStoredAliasSeed(storedData);
 
 const resourceContent = {
   breathing: {
@@ -97,6 +106,204 @@ function showToast(title, message) {
   toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 4200);
 }
 
+function createEmptyStoredData() {
+  return {
+    feedback: [],
+    vents: [],
+    academic: [],
+    supportReplies: []
+  };
+}
+
+function loadStoredData() {
+  try {
+    const rawData = window.localStorage.getItem(STORAGE_KEY);
+    if (!rawData) return createEmptyStoredData();
+
+    const parsedData = JSON.parse(rawData);
+    return {
+      feedback: Array.isArray(parsedData.feedback) ? parsedData.feedback : [],
+      vents: Array.isArray(parsedData.vents) ? parsedData.vents : [],
+      academic: Array.isArray(parsedData.academic) ? parsedData.academic : [],
+      supportReplies: Array.isArray(parsedData.supportReplies) ? parsedData.supportReplies : []
+    };
+  } catch (error) {
+    console.warn("No se pudo leer el almacenamiento local del prototipo:", error);
+    return createEmptyStoredData();
+  }
+}
+
+function saveStoredData() {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+    return true;
+  } catch (error) {
+    console.warn("No se pudo guardar en el almacenamiento local del prototipo:", error);
+    showToast("No se pudo guardar", "Tu navegador bloqueó el almacenamiento local.");
+    return false;
+  }
+}
+
+function getStoredAliasSeed(data) {
+  const aliases = [...data.vents, ...data.academic]
+    .map((item) => Number.parseInt(item.aliasNumber, 10))
+    .filter((number) => Number.isFinite(number));
+
+  return Math.max(42, ...aliases);
+}
+
+function createRecordId() {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function formatStoredDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Fecha no disponible";
+
+  return new Intl.DateTimeFormat("es-CL", {
+    dateStyle: "short",
+    timeStyle: "short"
+  }).format(date);
+}
+
+function createVentPostElement(record, isStored = false) {
+  const post = document.createElement("article");
+  post.className = `post-card${isStored ? "" : " is-new"}`;
+  post.innerHTML = `
+    <div class="post-meta">
+      <span class="anon-avatar small">${escapeHtml(record.aliasNumber)}</span>
+      <div><strong>Estudiante anónimo ${escapeHtml(record.aliasNumber)}</strong><small>${escapeHtml(isStored ? `${formatStoredDate(record.createdAt)} · ${record.category}` : `Ahora · ${record.category}`)}</small></div>
+    </div>
+    <p>${escapeHtml(record.message)}</p>
+    <span class="support-count">${isStored ? "♡ Mensaje guardado en este navegador" : "♡ Tu mensaje ya forma parte del muro"}</span>
+  `;
+
+  return post;
+}
+
+function createAcademicCardElement(record, isStored = false) {
+  const card = document.createElement("article");
+  card.className = "qa-card";
+  card.innerHTML = `
+    <div class="question-line">
+      <span class="anon-avatar small">${escapeHtml(record.aliasNumber)}</span>
+      <div><strong>${escapeHtml(record.question)}</strong><small>Estudiante anónimo ${escapeHtml(record.aliasNumber)} · ${isStored ? formatStoredDate(record.createdAt) : "Ahora"}</small></div>
+    </div>
+    <div class="answer-box"><span>Consulta recibida</span><p>En una plataforma real, la comunidad o un recurso moderado podría responder aquí.</p></div>
+  `;
+
+  return card;
+}
+
+function renderStoredVentPosts() {
+  storedData.vents
+    .slice()
+    .reverse()
+    .forEach((record) => ventFeed.prepend(createVentPostElement(record, true)));
+}
+
+function renderStoredAcademicQuestions() {
+  storedData.academic
+    .slice()
+    .reverse()
+    .forEach((record) => academicList.prepend(createAcademicCardElement(record, true)));
+}
+
+function addSupportReply(post, button, isStored = false) {
+  const reply = document.createElement("div");
+  reply.className = `support-reply demo-reply${isStored ? " is-stored" : ""}`;
+  reply.innerHTML = "<strong>Tú · Estudiante anónimo</strong><p>Gracias por compartirlo. Estoy contigo y espero que puedas darte el tiempo que necesitas 💚</p>";
+  button.before(reply);
+  button.textContent = isStored ? "Apoyo guardado" : "Apoyo enviado";
+  button.disabled = true;
+}
+
+function renderStoredSupportReplies() {
+  const posts = [...document.querySelectorAll("[data-community-post]")];
+
+  storedData.supportReplies.forEach((record) => {
+    const post = posts[record.postIndex];
+    const button = post?.querySelector("[data-support-reply]");
+    if (post && button && !post.querySelector(".demo-reply")) {
+      addSupportReply(post, button, true);
+    }
+  });
+}
+
+function renderFeedbackDashboard() {
+  const count = storedData.feedback.length;
+  const hasFeedback = count > 0;
+
+  downloadFeedbackButton.disabled = !hasFeedback;
+  clearFeedbackButton.disabled = !hasFeedback;
+  savedFeedbackList.hidden = !hasFeedback;
+
+  if (!hasFeedback) {
+    savedFeedbackSummary.textContent = "Todavía no hay respuestas guardadas en este navegador.";
+    savedFeedbackList.innerHTML = "";
+    return;
+  }
+
+  const latest = storedData.feedback[0];
+  savedFeedbackSummary.textContent = `${count} ${count === 1 ? "respuesta guardada" : "respuestas guardadas"} en este navegador. Último registro: ${formatStoredDate(latest.createdAt)}.`;
+  savedFeedbackList.innerHTML = storedData.feedback
+    .slice(0, 3)
+    .map((record, index) => `
+      <article>
+        <span>${index + 1}</span>
+        <div>
+          <strong>${escapeHtml(record.mostUseful || "Sin función seleccionada")}</strong>
+          <p>${escapeHtml(record.comments || "Sin comentarios adicionales.")}</p>
+          <small>${escapeHtml(formatStoredDate(record.createdAt))} · ${escapeHtml(record.format || "Formato no indicado")}</small>
+        </div>
+      </article>
+    `)
+    .join("");
+}
+
+function downloadFeedbackCsv() {
+  if (storedData.feedback.length === 0) return;
+
+  const headers = [
+    "Fecha",
+    "Entendio la plataforma",
+    "La usaria",
+    "Funcion mas util",
+    "Confia en el anonimato",
+    "Formato preferido",
+    "Comentarios"
+  ];
+  const rows = storedData.feedback.map((record) => [
+    formatStoredDate(record.createdAt),
+    record.understood,
+    record.wouldUse,
+    record.mostUseful,
+    record.trust,
+    record.format,
+    record.comments
+  ]);
+  const csv = [headers, ...rows].map((row) => row.map(toCsvCell).join(";")).join("\r\n");
+  const blob = new Blob(["\ufeff", csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = `feedback-apoyo-estudiantil-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  showToast("Descarga lista", "Se generó un archivo CSV con las respuestas guardadas.");
+}
+
+function toCsvCell(value = "") {
+  return `"${String(value).replaceAll('"', '""')}"`;
+}
+
 function scrollAppToTop() {
   if (document.body.dataset.view === "mobile") {
     appScroller.scrollTo({ top: 0, behavior: "smooth" });
@@ -165,20 +372,20 @@ document.querySelector("#vent-form").addEventListener("submit", (event) => {
 
   aliasSeed += Math.floor(Math.random() * 7) + 1;
   const aliasNumber = String(aliasSeed % 100).padStart(2, "0");
-  const post = document.createElement("article");
-  post.className = "post-card is-new";
-  post.innerHTML = `
-    <div class="post-meta">
-      <span class="anon-avatar small">${aliasNumber}</span>
-      <div><strong>Estudiante anónimo ${aliasNumber}</strong><small>Ahora · ${escapeHtml(category)}</small></div>
-    </div>
-    <p>${escapeHtml(message)}</p>
-    <span class="support-count">♡ Tu mensaje ya forma parte del muro</span>
-  `;
+  const record = {
+    id: createRecordId(),
+    createdAt: new Date().toISOString(),
+    aliasNumber,
+    category,
+    message
+  };
+  const post = createVentPostElement(record);
 
-  document.querySelector("#vent-feed").prepend(post);
+  storedData.vents.unshift(record);
+  saveStoredData();
+  ventFeed.prepend(post);
   form.reset();
-  showToast("Publicación anónima creada", `Tu mensaje apareció como Estudiante anónimo ${aliasNumber}.`);
+  showToast("Publicación anónima guardada", `Tu mensaje apareció como Estudiante anónimo ${aliasNumber}.`);
 });
 
 document.querySelector("#academic-form").addEventListener("submit", (event) => {
@@ -190,19 +397,19 @@ document.querySelector("#academic-form").addEventListener("submit", (event) => {
 
   aliasSeed += 3;
   const aliasNumber = String(aliasSeed % 100).padStart(2, "0");
-  const card = document.createElement("article");
-  card.className = "qa-card";
-  card.innerHTML = `
-    <div class="question-line">
-      <span class="anon-avatar small">${aliasNumber}</span>
-      <div><strong>${escapeHtml(question)}</strong><small>Estudiante anónimo ${aliasNumber} · Ahora</small></div>
-    </div>
-    <div class="answer-box"><span>Consulta recibida</span><p>En una plataforma real, la comunidad o un recurso moderado podría responder aquí.</p></div>
-  `;
+  const record = {
+    id: createRecordId(),
+    createdAt: new Date().toISOString(),
+    aliasNumber,
+    question
+  };
+  const card = createAcademicCardElement(record);
 
-  document.querySelector("#academic-list").prepend(card);
+  storedData.academic.unshift(record);
+  saveStoredData();
+  academicList.prepend(card);
   form.reset();
-  showToast("Consulta publicada", "Tu pregunta se agregó sin mostrar tu identidad.");
+  showToast("Consulta guardada", "Tu pregunta se agregó sin mostrar tu identidad.");
 });
 
 document.querySelectorAll("[data-support-reply]").forEach((button) => {
@@ -215,13 +422,15 @@ document.querySelectorAll("[data-support-reply]").forEach((button) => {
       return;
     }
 
-    const reply = document.createElement("div");
-    reply.className = "support-reply demo-reply";
-    reply.innerHTML = "<strong>Tú · Estudiante anónimo</strong><p>Gracias por compartirlo. Estoy contigo y espero que puedas darte el tiempo que necesitas 💚</p>";
-    button.before(reply);
-    button.textContent = "Apoyo enviado";
-    button.disabled = true;
-    showToast("Respuesta de apoyo enviada", "Tu mensaje apareció con identidad anónima.");
+    const postIndex = [...document.querySelectorAll("[data-community-post]")].indexOf(post);
+    storedData.supportReplies.unshift({
+      id: createRecordId(),
+      createdAt: new Date().toISOString(),
+      postIndex
+    });
+    saveStoredData();
+    addSupportReply(post, button);
+    showToast("Respuesta de apoyo guardada", "Tu mensaje apareció con identidad anónima.");
   });
 });
 
@@ -274,18 +483,37 @@ document.querySelector("#orientation-request").addEventListener("click", () => {
   );
 });
 
-document.querySelector("#feedback-form").addEventListener("submit", (event) => {
+feedbackForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const form = event.currentTarget;
-  const feedback = Object.fromEntries(new FormData(form).entries());
+  const feedback = {
+    id: createRecordId(),
+    createdAt: new Date().toISOString(),
+    ...Object.fromEntries(new FormData(form).entries())
+  };
 
-  console.info("Feedback simulado del prototipo:", feedback);
+  storedData.feedback.unshift(feedback);
+  saveStoredData();
+  renderFeedbackDashboard();
+  console.info("Feedback guardado del prototipo:", feedback);
   form.reset();
-  showToast("¡Gracias por ayudarnos!", "Tu feedback fue registrado visualmente para esta prueba.");
+  showToast("¡Gracias por ayudarnos!", "Tu feedback quedó guardado en este navegador.");
+});
+
+downloadFeedbackButton.addEventListener("click", downloadFeedbackCsv);
+
+clearFeedbackButton.addEventListener("click", () => {
+  const shouldClear = window.confirm("¿Borrar las respuestas guardadas en este navegador?");
+  if (!shouldClear) return;
+
+  storedData.feedback = [];
+  saveStoredData();
+  renderFeedbackDashboard();
+  showToast("Respuestas borradas", "El registro local de feedback quedó vacío.");
 });
 
 function escapeHtml(value) {
-  return value.replace(/[&<>"']/g, (character) => {
+  return String(value).replace(/[&<>"']/g, (character) => {
     const entities = {
       "&": "&amp;",
       "<": "&lt;",
@@ -298,4 +526,8 @@ function escapeHtml(value) {
 }
 
 const initialScreen = window.location.hash.slice(1);
+renderStoredVentPosts();
+renderStoredAcademicQuestions();
+renderStoredSupportReplies();
+renderFeedbackDashboard();
 setScreen(screens.some((screen) => screen.dataset.screen === initialScreen) ? initialScreen : "home", false);

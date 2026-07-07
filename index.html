@@ -506,10 +506,23 @@
                   <label class="field-group" for="feedback-comments">6. ¿Qué cambiarías?</label>
                   <textarea id="feedback-comments" name="comments" rows="4" placeholder="Cuéntanos qué mejorarías, agregarías o quitarías…"></textarea>
                   <div class="feedback-submit">
-                    <p><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"></path><rect x="5" y="10" width="14" height="11" rx="2"></rect></svg> Tus respuestas son simuladas y no se envían a ningún servidor.</p>
+                    <p><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"></path><rect x="5" y="10" width="14" height="11" rx="2"></rect></svg> Tus respuestas quedan guardadas en este navegador y se pueden descargar.</p>
                     <button class="primary-button" type="submit">Enviar feedback</button>
                   </div>
                 </form>
+
+                <section class="saved-feedback-panel" aria-labelledby="saved-feedback-title">
+                  <div>
+                    <p class="eyebrow">Registro local</p>
+                    <h3 id="saved-feedback-title">Respuestas guardadas</h3>
+                    <p id="saved-feedback-summary">Todavía no hay respuestas guardadas en este navegador.</p>
+                  </div>
+                  <div class="saved-actions">
+                    <button id="download-feedback" class="outline-button" type="button" disabled>Descargar respuestas</button>
+                    <button id="clear-feedback" class="outline-button danger-outline" type="button" disabled>Borrar respuestas</button>
+                  </div>
+                  <div id="saved-feedback-list" class="saved-feedback-list" hidden></div>
+                </section>
               </section>
             </div>
 
