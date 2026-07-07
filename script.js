@@ -19,7 +19,7 @@ const clearFeedbackButton = document.querySelector("#clear-feedback");
 
 const STORAGE_KEY = "apoyo-estudiantil-prototipo-v1";
 // Pega aquí la URL de Google Apps Script que termina en /exec para activar el envío a Google Sheets.
-const GOOGLE_SHEETS_WEB_APP_URL = "";
+const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1middEbtCWY0x6SVTzaFDNr73c6sF-pPsVRvIWh7s5WfHT5sg_pi6UNOst0A51gVe4Q/exec";
 const GOOGLE_SHEETS_ENABLED = GOOGLE_SHEETS_WEB_APP_URL.startsWith("https://script.google.com/macros/s/")
   && GOOGLE_SHEETS_WEB_APP_URL.endsWith("/exec");
 let activeScreen = "home";
