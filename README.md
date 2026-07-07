@@ -15,6 +15,7 @@ Prototipo local navegable creado para una presentación y proceso de validación
 1. Crea una Google Sheet nueva.
 2. En la hoja, entra a **Extensiones > Apps Script**.
 3. Borra el contenido inicial del editor y pega todo el contenido de `google-apps-script.gs`.
+   - Link recomendado para copiar el código en texto plano: https://raw.githubusercontent.com/PieroSotoUCT/apoyo-estudiantil/main/google-apps-script.gs
 4. Guarda el proyecto.
 5. Ve a **Implementar > Nueva implementación**.
 6. En tipo de implementación, elige **Aplicación web**.
