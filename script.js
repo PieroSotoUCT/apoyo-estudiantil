@@ -16,8 +16,11 @@ const savedFeedbackSummary = document.querySelector("#saved-feedback-summary");
 const savedFeedbackList = document.querySelector("#saved-feedback-list");
 const downloadFeedbackButton = document.querySelector("#download-feedback");
 const clearFeedbackButton = document.querySelector("#clear-feedback");
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeLabel = document.querySelector("[data-theme-label]");
 
 const STORAGE_KEY = "apoyo-estudiantil-prototipo-v1";
+const THEME_STORAGE_KEY = "apoyo-estudiantil-theme";
 // Pega aquí la URL de Google Apps Script que termina en /exec para activar el envío a Google Sheets.
 const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1middEbtCWY0x6SVTzaFDNr73c6sF-pPsVRvIWh7s5WfHT5sg_pi6UNOst0A51gVe4Q/exec";
 const GOOGLE_SHEETS_ENABLED = GOOGLE_SHEETS_WEB_APP_URL.startsWith("https://script.google.com/macros/s/")
@@ -108,6 +111,47 @@ function showToast(title, message) {
   toastMessage.textContent = message;
   toast.classList.add("is-visible");
   toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 4200);
+}
+
+function getStoredTheme() {
+  try {
+    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return savedTheme === "dark" ? "dark" : "light";
+  } catch (error) {
+    return "light";
+  }
+}
+
+function setTheme(theme, shouldStore = true, shouldNotify = false) {
+  const nextTheme = theme === "dark" ? "dark" : "light";
+  const isDark = nextTheme === "dark";
+
+  document.body.dataset.theme = nextTheme;
+
+  if (themeToggle) {
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.setAttribute("aria-label", isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+    themeToggle.title = isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+  }
+
+  if (themeLabel) {
+    themeLabel.textContent = isDark ? "Modo claro" : "Modo oscuro";
+  }
+
+  if (shouldStore) {
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (error) {
+      console.warn("No se pudo guardar el modo visual:", error);
+    }
+  }
+
+  if (shouldNotify) {
+    showToast(
+      isDark ? "Modo oscuro activado" : "Modo claro activado",
+      isDark ? "La interfaz ahora usa colores de bajo brillo." : "La interfaz volvió a la versión clara."
+    );
+  }
 }
 
 function createEmptyStoredData() {
@@ -397,6 +441,13 @@ viewButtons.forEach((button) => {
   });
 });
 
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme, true, true);
+  });
+}
+
 document.querySelector("#vent-form").addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -566,6 +617,7 @@ function escapeHtml(value) {
 }
 
 const initialScreen = window.location.hash.slice(1);
+setTheme(getStoredTheme(), false, false);
 renderStoredVentPosts();
 renderStoredAcademicQuestions();
 renderStoredSupportReplies();

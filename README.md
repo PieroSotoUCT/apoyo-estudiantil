@@ -51,6 +51,7 @@ El script crea automáticamente estas pestañas en la hoja: `Feedback`, `Desahog
 - La apertura de recursos breves en ventanas informativas.
 - La comprensión de los canales de derivación institucional.
 - La preferencia entre la vista web y la vista dentro de un celular.
+- La preferencia entre modo claro y modo oscuro.
 - Las respuestas de la sección final “Ayúdanos a mejorar el prototipo” y su descarga en CSV.
 
 ## Alcance

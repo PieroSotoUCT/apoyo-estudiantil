@@ -108,8 +108,10 @@ svg {
 }
 
 .prototype-title,
+.prototype-actions,
 .view-switcher,
-.view-button {
+.view-button,
+.theme-toggle {
   display: flex;
   align-items: center;
 }
@@ -117,6 +119,10 @@ svg {
 .prototype-title {
   gap: 9px;
   font-size: 0.86rem;
+}
+
+.prototype-actions {
+  gap: 10px;
 }
 
 .prototype-title strong {
@@ -159,6 +165,28 @@ svg {
   color: var(--green-dark);
   background: white;
   box-shadow: 0 2px 8px rgba(31, 70, 60, 0.1);
+}
+
+.theme-toggle {
+  min-height: 42px;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid #d7e3de;
+  color: var(--green-dark);
+  background: rgba(255, 255, 255, 0.76);
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(31, 70, 60, 0.06);
+}
+
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.theme-toggle-sun {
+  display: none;
 }
 
 .preview-stage {
@@ -2351,12 +2379,21 @@ body[data-view="mobile"] .feedback-submit .primary-button {
     justify-content: center;
   }
 
+  .prototype-actions {
+    flex-direction: column;
+  }
+
   .view-switcher {
     width: 100%;
   }
 
   .view-button {
     flex: 1;
+    justify-content: center;
+  }
+
+  .theme-toggle {
+    width: 100%;
     justify-content: center;
   }
 
@@ -2434,6 +2471,264 @@ body[data-view="mobile"] .feedback-submit .primary-button {
   .institution-list .outline-button {
     grid-column: 1 / -1;
   }
+}
+
+body[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #edf8f4;
+  --ink-soft: #bfd4cc;
+  --muted: #8fa9a0;
+  --line: rgba(184, 220, 207, 0.18);
+  --paper: #0f1916;
+  --canvas: #0a1210;
+  --mint: #173f35;
+  --mint-soft: #102b25;
+  --green: #6bd5b2;
+  --green-dark: #baf6e1;
+  --blue: #142b3f;
+  --blue-strong: #8bc6f1;
+  --lilac: #2d2440;
+  --lilac-strong: #c7a9ff;
+  --yellow: #372f13;
+  --yellow-strong: #f4d887;
+  --orange: #3b2519;
+  --orange-strong: #f2ad7c;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  --soft-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(47, 117, 102, 0.35), transparent 24rem),
+    radial-gradient(circle at 94% 82%, rgba(79, 130, 168, 0.22), transparent 26rem),
+    #07110e;
+}
+
+body[data-theme="dark"] .prototype-toolbar {
+  background: rgba(10, 18, 16, 0.88);
+  border-bottom-color: rgba(184, 220, 207, 0.12);
+}
+
+body[data-theme="dark"] .prototype-title strong,
+body[data-theme="dark"] .brand-copy strong,
+body[data-theme="dark"][data-view="mobile"] .mobile-brand strong {
+  color: var(--green-dark);
+}
+
+body[data-theme="dark"] .view-switcher {
+  background: #14231f;
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .view-button.is-active,
+body[data-theme="dark"] .theme-toggle {
+  color: var(--green-dark);
+  background: #1a2b26;
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+body[data-theme="dark"] .theme-toggle-moon {
+  display: none;
+}
+
+body[data-theme="dark"] .theme-toggle-sun {
+  display: block;
+}
+
+body[data-theme="dark"] .app-frame {
+  border-color: rgba(184, 220, 207, 0.14);
+}
+
+body[data-theme="dark"] .sidebar {
+  background: #111d19;
+  border-right-color: var(--line);
+}
+
+body[data-theme="dark"] .context-bar,
+body[data-theme="dark"] .home-lower {
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .nav-item {
+  color: var(--muted);
+}
+
+body[data-theme="dark"] .nav-item:hover {
+  color: var(--green-dark);
+  background: rgba(107, 213, 178, 0.08);
+}
+
+body[data-theme="dark"] .privacy-card,
+body[data-theme="dark"] .answer-box,
+body[data-theme="dark"] .modal-steps div,
+body[data-theme="dark"] .saved-feedback-list article {
+  background: #13221e;
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .mini-shield,
+body[data-theme="dark"] .icon-button,
+body[data-theme="dark"] .back-button,
+body[data-theme="dark"] .secondary-button,
+body[data-theme="dark"] .outline-button,
+body[data-theme="dark"] .live-pill,
+body[data-theme="dark"] .card-badge,
+body[data-theme="dark"] .support-button,
+body[data-theme="dark"] .modal-close {
+  color: var(--green);
+  background: #15241f;
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .primary-button {
+  color: #062019;
+  box-shadow: 0 12px 28px rgba(107, 213, 178, 0.16);
+}
+
+body[data-theme="dark"] .primary-button:hover {
+  background: #8de8cc;
+}
+
+body[data-theme="dark"] .orange-button {
+  color: white;
+  background: #d97845;
+}
+
+body[data-theme="dark"] textarea,
+body[data-theme="dark"] input,
+body[data-theme="dark"] select {
+  color: var(--ink);
+  background: #0f1c18;
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] textarea::placeholder,
+body[data-theme="dark"] input::placeholder {
+  color: #6f8a80;
+}
+
+body[data-theme="dark"] option {
+  color: var(--ink);
+  background: #0f1c18;
+}
+
+body[data-theme="dark"] .mint {
+  background: rgba(36, 89, 74, 0.58);
+  border-color: rgba(107, 213, 178, 0.28);
+}
+
+body[data-theme="dark"] .yellow {
+  background: rgba(84, 67, 22, 0.5);
+  border-color: rgba(244, 216, 135, 0.25);
+}
+
+body[data-theme="dark"] .lilac {
+  background: rgba(57, 44, 86, 0.58);
+  border-color: rgba(199, 169, 255, 0.24);
+}
+
+body[data-theme="dark"] .blue {
+  background: rgba(24, 61, 86, 0.58);
+  border-color: rgba(139, 198, 241, 0.22);
+}
+
+body[data-theme="dark"] .orange {
+  background: rgba(80, 44, 25, 0.58);
+  border-color: rgba(242, 173, 124, 0.22);
+}
+
+body[data-theme="dark"] .green {
+  background: rgba(33, 79, 53, 0.58);
+  border-color: rgba(107, 213, 178, 0.22);
+}
+
+body[data-theme="dark"] .need-icon,
+body[data-theme="dark"] .resource-icon,
+body[data-theme="dark"] .aside-art,
+body[data-theme="dark"] .mood-row span {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="dark"] .check-in-card,
+body[data-theme="dark"] .floating-safe,
+body[data-theme="dark"] .post-card,
+body[data-theme="dark"] .qa-card,
+body[data-theme="dark"] .community-post,
+body[data-theme="dark"] .institution-list article,
+body[data-theme="dark"] .saved-feedback-panel,
+body[data-theme="dark"] .modal,
+body[data-theme="dark"] .toast {
+  background: #13201c;
+  border-color: var(--line);
+  box-shadow: var(--soft-shadow);
+}
+
+body[data-theme="dark"] .composer-card,
+body[data-theme="dark"] .inline-question,
+body[data-theme="dark"] .feedback-form {
+  background: #111d19;
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .hero-visual::before {
+  background: linear-gradient(145deg, rgba(33, 86, 70, 0.74), rgba(31, 65, 88, 0.62));
+}
+
+body[data-theme="dark"] .check-in-line span {
+  background: rgba(184, 220, 207, 0.16);
+}
+
+body[data-theme="dark"] .gentle-reminder,
+body[data-theme="dark"] .inline-question,
+body[data-theme="dark"] .urgent-card,
+body[data-theme="dark"] .professional-notice,
+body[data-theme="dark"] .institution-list article.emergency-row {
+  background: rgba(65, 43, 21, 0.5);
+  border-color: rgba(242, 173, 124, 0.22);
+}
+
+body[data-theme="dark"] .community-rules,
+body[data-theme="dark"] .support-reply {
+  background: rgba(57, 44, 86, 0.55);
+  border-color: rgba(199, 169, 255, 0.24);
+}
+
+body[data-theme="dark"] .community-rules li,
+body[data-theme="dark"] .choice-row span {
+  background: #172520;
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .choice-row input:checked + span {
+  color: var(--green-dark);
+  background: rgba(36, 89, 74, 0.8);
+}
+
+body[data-theme="dark"] .community-aside {
+  background: linear-gradient(150deg, #132d25, #172535);
+}
+
+body[data-theme="dark"] .stat-avatars i {
+  border-color: #0f1916;
+}
+
+body[data-theme="dark"] .modal::backdrop {
+  background: rgba(3, 8, 7, 0.72);
+}
+
+body[data-theme="dark"][data-view="mobile"] .app-frame,
+body[data-theme="dark"][data-view="mobile"] .phone-notch {
+  border-color: #050b09;
+  background: #050b09;
+}
+
+body[data-theme="dark"][data-view="mobile"] .phone-notch span {
+  background: #27473f;
+}
+
+body[data-theme="dark"][data-view="mobile"] .mobile-header,
+body[data-theme="dark"][data-view="mobile"] .mobile-bottom-nav {
+  background: rgba(15, 25, 22, 0.94);
+  border-color: var(--line);
 }
 
 @media (prefers-reduced-motion: reduce) {

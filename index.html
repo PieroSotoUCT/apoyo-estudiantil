@@ -7,7 +7,7 @@
     <title>PAE — Apoyo Estudiantil Anónimo</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body data-view="web">
+  <body data-view="web" data-theme="light">
     <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
     <header class="prototype-toolbar" aria-label="Controles de presentación">
@@ -15,20 +15,27 @@
         <span class="prototype-dot" aria-hidden="true"></span>
         <span><strong>Prototipo</strong> · Apoyo estudiantil</span>
       </div>
-      <div class="view-switcher" role="group" aria-label="Cambiar formato de visualización">
-        <button class="view-button is-active" type="button" data-view-mode="web" aria-pressed="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="13" rx="2"></rect>
-            <path d="M8 21h8M12 17v4"></path>
-          </svg>
-          Ver como sitio web
-        </button>
-        <button class="view-button" type="button" data-view-mode="mobile" aria-pressed="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="7" y="2" width="10" height="20" rx="2"></rect>
-            <path d="M11 18h2"></path>
-          </svg>
-          Ver como celular
+      <div class="prototype-actions">
+        <div class="view-switcher" role="group" aria-label="Cambiar formato de visualización">
+          <button class="view-button is-active" type="button" data-view-mode="web" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+              <path d="M8 21h8M12 17v4"></path>
+            </svg>
+            Ver como sitio web
+          </button>
+          <button class="view-button" type="button" data-view-mode="mobile" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="7" y="2" width="10" height="20" rx="2"></rect>
+              <path d="M11 18h2"></path>
+            </svg>
+            Ver como celular
+          </button>
+        </div>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <svg class="theme-toggle-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.4A7.5 7.5 0 0 1 9.6 3 8.5 8.5 0 1 0 21 14.4Z"></path></svg>
+          <svg class="theme-toggle-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          <span data-theme-label>Modo oscuro</span>
         </button>
       </div>
     </header>
